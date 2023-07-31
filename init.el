@@ -96,6 +96,10 @@
 (use-package command-log-mode
   :commands command-log-mode)
 
+;; add new comment from archlinux box to push to GH
+;; todo install magit and org-mode
+;; also install evil-escape package
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

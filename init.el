@@ -168,8 +168,7 @@
 
 
 ;; add new comment from archlinux box to push to GH
-;; todo install magit
-;; see this link 
+;; done install magit see the below link 
 ;; https://medium.com/helpshift-engineering/configuring-emacs-from-scratch-use-package-c30382297877
 (use-package magit
   :ensure t

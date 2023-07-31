@@ -12,6 +12,11 @@
 ;; emacs garbage collection override
 (setq gc-cons-threshold (* 50 1000 1000))
 
+;; (add-to-list 'load-path "~/.emacs.d")
+;; https://www.emacswiki.org/emacs/LoadPath#:~:text=The%20value%20of%20variable%20'load,directories%20for%20the%20Emacs%20distribution.
+(concat user-emacs-directory
+        (convert-standard-filename "elisp/")) ;; load your elisp files here
+
 ;; skip display startup time
 ;; initialize package sources
 (require 'package)
@@ -95,9 +100,81 @@
 ;; add comment install command-log-mode
 (use-package command-log-mode
   :commands command-log-mode)
+(use-package doom-themes
+  :init (load-theme 'doom-palenight t))
+
+(use-package all-the-icons)
+
+(use-package doom-modeline
+  :init (doom-modeline-mode 1)
+  :custom ((doom-modeline-height 15)))
+
+(use-package which-key
+  :defer 0
+  :diminish which-key-mode
+  (which-key-mode)
+  (setq which-key-idle-delay 1))
+
+(use-package ivy
+  :diminish
+  :bind (("C-s" . swiper)
+	 :map ivy-minibuffer-map
+	 ("TAB" . ivy-alt-done)
+	 ("C-l" . ivy-alt-done)
+	 ("C-j" . ivy-next-line)
+	 ("C-k" . ivy-previous-line)
+	 :map ivy-switch-buffer-map
+	 ("C-k" . ivy-previous-line) ;; why repeat of the above?
+	 ("C-l" . ivy-done)
+	 ("C-d" . ivy-switch-buffer-kill)
+	 :map ivy-reverse-i-search-map
+	 ("C-k" . ivy-previous-line)
+	 ("C-d" . ivy-reverse-i-search-kill))
+  :config
+  (ivy-mode 1))
+
+(use-package ivy-rich
+  :after ivy
+  :init
+  (ivy-rich-mode 1))
+
+(use-package counsel
+  :bind (("C-M-j" . 'counsel-switch-buffer)
+	 :map minibuffer-local-map
+	 ("C-r" . 'counsel-minibuffer-history))
+  :custom
+  (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
+  :config
+  (counsel-mode 1))
+
+(use-package ivy-prescient
+  :after counsel
+  :custom
+  (ivy-prescient-enable-filtering nil)
+  :config
+  ;; uncomment the below line to have sorting remembered across sessions
+  (prescient-persist-mode 1)
+  (ivy-prescient-mode 1))
+
+(use-package hydra
+  :defer t)
+(defhydra hydra-text-scale (:timeout 4)
+	  "scale text"
+	  ("j" text-scale-increase "in")
+	  ("k" text-scale-increase "out")
+	  ("f" nil "finished" :exit t))
+(em/leader-keys
+  "ts" '(hydra-text-scale/body :which-key "scale text"))
+
 
 ;; add new comment from archlinux box to push to GH
-;; todo install magit and org-mode
+;; todo install magit
+;; see this link 
+;; https://medium.com/helpshift-engineering/configuring-emacs-from-scratch-use-package-c30382297877
+(use-package magit
+  :ensure t
+  :bind ("C-x g" . magit-status))
+;; todo install org-mode
 ;; also install evil-escape package
 
 (custom-set-variables
@@ -105,7 +182,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(command-log-mode auto-package-update use-package)))
+ '(package-selected-packages
+   '(magit hydra ivy-prescient ivy command-log-mode auto-package-update use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

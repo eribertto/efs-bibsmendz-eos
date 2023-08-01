@@ -45,11 +45,10 @@
   (auto-package-update-maybe)
   (auto-package-update-at-time "09:00"))
 ;; no littering
-;; (use-package no-littering)
-;; related to no-littering
-;; see https://melpa.org/#/no-littering
-;; (setq auto-save-file-name-transforms
-;;      '((".*" '(no-littering-expand-var-file-name "auto-save/") t)))
+;;(use-package no-littering)
+;; related to no-littering see https://melpa.org/#/no-littering
+;;(setq auto-save-file-name-transforms
+ ;;     '((".*" '(no-littering-expand-var-file-name "auto-save/") t)))
 (setq inhibit-startup-message t)
 ;; setup the visible bell
 (setq visible-bell t)
@@ -182,7 +181,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(magit hydra ivy-prescient ivy command-log-mode auto-package-update use-package)))
+   '(no-littering doom-themes doom-modeline magit command-log-mode auto-package-update use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

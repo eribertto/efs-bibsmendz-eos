@@ -19,6 +19,9 @@ tramp
 /eshell/history
 /eshell/lastdir
 
+# local folder
+/.local
+
 # elpa packages
 /elpa/
 

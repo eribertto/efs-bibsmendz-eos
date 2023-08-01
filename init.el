@@ -106,7 +106,7 @@
 
 (use-package doom-modeline
   :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 15)))
+  :custom ((doom-modeline-height 12)))
 
 (use-package which-key
   :defer 0
